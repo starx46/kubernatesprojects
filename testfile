@@ -3,6 +3,7 @@ pipeline {
 	stages {
 		stage('sample build stage') {
 			steps {
+				git url: 'https://github.com/starx46/kubernatesprojects.git'
 				rsync -avh /var/lib/docker/volumes/jenkins_home/_data/workspace/k8-project-pipeline/Dockerfile root@172.31.24.120:/home/ec2-user/jenkins-anible/
 				echo "file transfer completed"
 				}
