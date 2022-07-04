@@ -3,7 +3,7 @@ pipeline {
 	stages {
 		stage('sample build stage') {
 			steps {
-				rsync -avh /var/lib/docker/volumes/jenkins_home/_data/workspace/k8-project/Dockerfile root@172.31.24.120:/home/ec2-user/jenkins-anible/
+				rsync -avh /var/lib/docker/volumes/jenkins_home/_data/workspace/k8-project-pipeline/Dockerfile root@172.31.24.120:/home/ec2-user/jenkins-anible/
 				echo "file transfer completed"
 				}
 			}
