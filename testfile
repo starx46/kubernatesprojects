@@ -3,8 +3,7 @@ pipeline {
 	stages {
 		stage('sample build stage') {
 			steps {
-				git url: 'https://github.com/starx46/kubernatesprojects.git'
-				sh /var/lib/docker/volumes/jenkins_home/_data/script/copy.sh
+				
 				echo "file transfer completed"
 				}
 			}
