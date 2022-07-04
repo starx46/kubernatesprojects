@@ -1,0 +1,10 @@
+pipeline {
+	agent any
+	stages {
+		stage('sample build stage') {
+			steps {
+				echo "hellow world"
+				}
+			}
+		}
+	}
