@@ -3,7 +3,7 @@ pipeline {
 	stages {
 		stage('sample build stage') {
 			steps {
-				echo "hellow world"
+				echo "I am learning jenkins pipeline"
 				}
 			}
 		}
