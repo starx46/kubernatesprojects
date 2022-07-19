@@ -1,23 +1,16 @@
-pipeline { 
- description()
-keepDependencies(false)
-parameters {
-  choiceParam("jobInputType", ["buildAndDeploy", "deploy"], "Some  choice  parameter")
-  stringParam("BRANCH_NAME", "", "Enter your branch name, you want to build from")
-}
-definition {
- cpsScm {
-    scm {
-      git {
-        remote {
-            url("https://github.com/starx46/kubernatesprojects.git")
-          
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+              checkout([$class: 'GitSCM', 
+                branches: [[name: '*/main']],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [[$class: 'CleanCheckout']],
+                submoduleCfg: [], 
+                userRemoteConfigs: [[url: 'https://github.com/naiveskill/devops.git']]])
+              sh "ls -ltr"
+          }
         }
-        branch("*/main")
-      }
     }
-    scriptPath("kubernatesprojects/Jenkinsfile")
-  }
-}
-disabled(false)
 }
