@@ -1,17 +1,23 @@
-// Declarative //
-pipeline {
-    agent any
-    stages {
-        stage('Example') {
-            steps {
-                echo 'Hello World'
-            }
-        }
-    }
-    post { 
-        always { 
-            echo 'I will always say Hello again!'
-        }
-    }
+pipelineJob("nonprod_components/middleware/product-service") { 
+ description()
+keepDependencies(false)
+parameters {
+  choiceParam("jobInputType", ["buildAndDeploy", "deploy"], "Some  choice  parameter")
+  stringParam("BRANCH_NAME", "", "Enter your branch name, you want to build from")
 }
-// Script //
+definition {
+ cpsScm {
+    scm {
+      git {
+        remote {
+            url("https://github.com/starx46/kubernatesprojects.git")
+          
+        }
+        branch("*/main")
+      }
+    }
+    scriptPath("kubernatesprojects/Jenkinsfile")
+  }
+}
+disabled(false)
+}
