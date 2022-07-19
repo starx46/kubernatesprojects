@@ -1,4 +1,4 @@
-pipelineJob("nonprod_components/middleware/product-service") { 
+pipeline { 
  description()
 keepDependencies(false)
 parameters {
