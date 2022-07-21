@@ -17,13 +17,13 @@ node {
         remote.user = userName
         remote.identityFile = identity
         stage("docker image build") { 
-            sh 'echo export BUILD_NUMBER=${BUILD_NUMBER}>abc.sh'
-            //writeFile file: 'abc.sh', text: '${BUILD_NUMBER}'
+            sh 'echo export BUILD_NUMBER=${env.BUILD_NUMBER}>abc.sh'
+            //writeFile file: 'abc.sh', text: '${env.BUILD_NUMBER}'
             sshScript remote: remote, script: 'abc.sh'
             sshPut remote: remote, from: 'Dockerfile', into: '/root/docker/'
             //sshCommand remote: remote, command: 'docker build -t testweb /root/docker/.'
-            sshCommand remote: remote, command: 'export BUILD_NUMBER=${BUILD_NUMBER}'
-            sshCommand remote: remote, command: 'echo ${BUILD_NUMBER}>/tmp/test.txt'
+            sshCommand remote: remote, command: 'export BUILD_NUMBER=${env.BUILD_NUMBER}'
+            sshCommand remote: remote, command: 'echo ${env.BUILD_NUMBER}>/tmp/test.txt'
             
             //sshRemove remote: remote, path: 'abc.sh'
         }
