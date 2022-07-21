@@ -16,9 +16,9 @@ node {
     withCredentials([sshUserPrivateKey(credentialsId: 'docker-build', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
         remote.user = userName
         remote.identityFile = identity
-        stage("SSH Steps Rocks!") {            
+        stage("docker image build") {            
             sshPut remote: remote, from: 'Dockerfile', into: '/root/docker/'
-            sshCommand remote: remote, command: 'docker build -t testweb /root/docker/.'
+            sshCommand remote: remote, command: 'docker build -t testweb.${BUILD_NUMBER}:v1.${BUILD_NUMBER} /root/docker/.'
             //sshScript remote: remote, script: 'abc.sh'
             //sshRemove remote: remote, path: 'abc.sh'
         }
