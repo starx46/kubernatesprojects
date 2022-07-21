@@ -20,7 +20,8 @@ node {
             sh 'export ${BUILD_NUMBER}'
             sshPut remote: remote, from: 'Dockerfile', into: '/root/docker/'
             //sshCommand remote: remote, command: 'docker build -t testweb /root/docker/.'
-            sshCommand remote: remote, command: 'export ${BUILD_NUMBER}; echo ${BUILD_NUMBER}'
+            sshCommand remote: remote, command: 'export ${BUILD_NUMBER}'
+            sshCommand remote: remote, command: 'echo ${BUILD_NUMBER}'
             //sshScript remote: remote, script: 'abc.sh'
             //sshRemove remote: remote, path: 'abc.sh'
         }
