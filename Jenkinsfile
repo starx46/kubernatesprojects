@@ -7,7 +7,7 @@ node {
     
     
         stage('checkout scm'){
-           url: 'https://github.com/starx46/kubernatesprojects.git'
+           git branch: 'main', url: 'https://github.com/starx46/kubernatesprojects.git'
            sh 'ls -ltrh' 
         
         }
