@@ -17,7 +17,7 @@ node {
         remote.user = userName
         remote.identityFile = identity
         stage("docker image build") { 
-            sh '${env.BUILD_NUMBER}'
+            sh 'echo ${BUILD_NUMBER}'
             sshPut remote: remote, from: 'Dockerfile', into: '/root/docker/'
             //sshCommand remote: remote, command: 'docker build -t testweb /root/docker/.'
             sshCommand remote: remote, command: 'echo 1'
