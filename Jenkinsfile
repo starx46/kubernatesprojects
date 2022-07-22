@@ -21,12 +21,17 @@ node {
             //writeFile file: 'abc.sh', text: '${BUILD_NUMBER}'
             //sshScript remote: remote, script: 'abc.sh'
             sshPut remote: remote, from: 'Dockerfile', into: '/root/docker/'
-            sshCommand remote: remote, command: 'docker build -t testweb /root/docker/.'
+            //sshCommand remote: remote, command: 'docker build -t testweb /root/docker/.'
             //sshCommand remote: remote, command: 'ansible-playbook docker.yml'
             //sshCommand remote: remote, command: 'export BUILD_NUMBER=${BUILD_NUMBER}'
             //sshCommand remote: remote, command: 'echo ${BUILD_NUMBER}>/tmp/test.txt'
             
             //sshRemove remote: remote, path: 'abc.sh'
+            
+            stage("creating container"){
+                ansible-playbook /root/docker/docker.yml
+            
+            }
         }
     }
 }
