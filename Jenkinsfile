@@ -1,6 +1,6 @@
 def remote = [:]
-remote.name = "worker-1"
-remote.host = "172.31.24.178"
+remote.name = "ansible-server"
+remote.host = "172.31.88.95"
 remote.allowAnyHosts = true
 
 node { 
@@ -17,13 +17,14 @@ node {
         remote.user = userName
         remote.identityFile = identity
         stage("docker image build") { 
-            sh 'echo export BUILD_NUMBER=${env.BUILD_NUMBER}>abc.sh'
+            sh 'echo export BUILD_NUMBER=${env.BUILD_ID}>abc.sh'
             //writeFile file: 'abc.sh', text: '${BUILD_NUMBER}'
-            sshScript remote: remote, script: 'abc.sh'
+            //sshScript remote: remote, script: 'abc.sh'
             sshPut remote: remote, from: 'Dockerfile', into: '/root/docker/'
-            //sshCommand remote: remote, command: 'docker build -t testweb /root/docker/.'
-            sshCommand remote: remote, command: 'export BUILD_NUMBER=${BUILD_NUMBER}'
-            sshCommand remote: remote, command: 'echo ${BUILD_NUMBER}>/tmp/test.txt'
+            sshCommand remote: remote, command: 'docker build -t testweb /root/docker/.'
+            //sshCommand remote: remote, command: 'ansible-playbook docker.yml'
+            //sshCommand remote: remote, command: 'export BUILD_NUMBER=${BUILD_NUMBER}'
+            //sshCommand remote: remote, command: 'echo ${BUILD_NUMBER}>/tmp/test.txt'
             
             //sshRemove remote: remote, path: 'abc.sh'
         }
