@@ -5,6 +5,9 @@ remote.allowAnyHosts = true
 
 node { 
     
+    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred-raja')
+	}
     
         stage('checkout scm'){
            git branch: 'main', url: 'https://github.com/starx46/kubernatesprojects.git'
@@ -18,11 +21,14 @@ node {
         remote.identityFile = identity
         stage("docker image build") { 
             sh 'echo ${BUILD_ID}'
+            sh 'echo docker user: ${DOCKERHUB_CREDENTIALS_USR}'
+            sh 'echo docker pass: $DOCKERHUB_CREDENTIALS_PSW |'
             sh 'mv Dockerfile Dockerfile_${BUILD_ID}'
             //writeFile file: 'abc.sh', text: '${BUILD_NUMBER}'
             //sshScript remote: remote, script: 'abc.sh'
             sshPut remote: remote, from: "Dockerfile_${BUILD_ID}", into: '/root/docker/'
             sshCommand remote: remote, command: "docker build -t testweb.v1.${BUILD_ID} -f /root/docker/Dockerfile_${BUILD_ID} ."
+            sshCommand remote: remote, command: "docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
             //sshCommand remote: remote, command: 'ansible-playbook docker.yml'
             //sshCommand remote: remote, command: 'export BUILD_NUMBER=${BUILD_NUMBER}'
             //sshCommand remote: remote, command: 'echo ${BUILD_NUMBER}>/tmp/test.txt'
