@@ -27,9 +27,9 @@ node {
             //writeFile file: 'abc.sh', text: '${BUILD_NUMBER}'
             //sshScript remote: remote, script: 'abc.sh'
             sshPut remote: remote, from: "Dockerfile_${BUILD_ID}", into: '/root/docker/'
-            sshCommand remote: remote, command: "docker build -t testweb.v1.${BUILD_ID} -f /root/docker/Dockerfile_${BUILD_ID} ."
+            sshCommand remote: remote, command: "docker build -t learndockerwithme/testweb.v1.${BUILD_ID} -f /root/docker/Dockerfile_${BUILD_ID} ."
 		sshCommand remote: remote, command: "docker login -u learndockerwithme -p K1reit@123"
-	    sshCommand remote: remote, command: "docker push testweb.v1.${BUILD_ID}:latest"
+	    sshCommand remote: remote, command: "docker push learndockerwithme/testweb.v1.${BUILD_ID}:latest"
             //sshCommand remote: remote, command: 'ansible-playbook docker.yml'
             //sshCommand remote: remote, command: 'export BUILD_NUMBER=${BUILD_NUMBER}'
             //sshCommand remote: remote, command: 'echo ${BUILD_NUMBER}>/tmp/test.txt'
