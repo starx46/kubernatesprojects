@@ -5,7 +5,9 @@ remote.allowAnyHosts = true
 
 node { 
     
-    
+    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
     
         stage('checkout scm'){
            git branch: 'main', url: 'https://github.com/starx46/kubernatesprojects.git'
@@ -20,7 +22,7 @@ node {
         stage("docker image build") { 
             sh 'echo ${BUILD_ID}'
             sh 'echo docker user: ${DOCKERHUB_CREDENTIALS_USR}'
-            sh 'echo docker pass: $DOCKERHUB_CREDENTIALS_PSW |'
+            sh 'echo docker pass: $DOCKERHUB_CREDENTIALS_PSW'
             sh 'mv Dockerfile Dockerfile_${BUILD_ID}'
             //writeFile file: 'abc.sh', text: '${BUILD_NUMBER}'
             //sshScript remote: remote, script: 'abc.sh'
