@@ -18,6 +18,7 @@ node {
         remote.identityFile = identity
         stage("docker image build") { 
             sh 'echo ${BUILD_ID}'
+            sh 'mv Dockerfile Dockerfile_${BUILD_ID}'
             //writeFile file: 'abc.sh', text: '${BUILD_NUMBER}'
             //sshScript remote: remote, script: 'abc.sh'
             sshPut remote: remote, from: 'Dockerfile_${BUILD_ID}', into: '/root/docker/'
