@@ -31,7 +31,7 @@ node {
             
             stage("creating container"){
                 //sshCommand remote: remote, command: 'ansible-playbook /root/docker/docker.yml'
-                ssh 'rm -rf Dockerfile_${BUILD_ID}'
+                sh 'rm -rf Dockerfile_${BUILD_ID}'
             
             }
         }
