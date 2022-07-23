@@ -30,7 +30,8 @@ node {
             //sshRemove remote: remote, path: 'abc.sh'
             
             stage("creating container"){
-                sshCommand remote: remote, command: 'ansible-playbook /root/docker/docker.yml'
+                //sshCommand remote: remote, command: 'ansible-playbook /root/docker/docker.yml'
+                ssh 'echo 1'
             
             }
         }
