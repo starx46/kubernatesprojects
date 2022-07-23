@@ -5,9 +5,7 @@ remote.allowAnyHosts = true
 
 node { 
     
-    environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
-	}
+    
     
         stage('checkout scm'){
            git branch: 'main', url: 'https://github.com/starx46/kubernatesprojects.git'
