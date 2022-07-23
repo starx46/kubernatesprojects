@@ -21,7 +21,7 @@ node {
             sh 'mv Dockerfile Dockerfile_${BUILD_ID}'
             //writeFile file: 'abc.sh', text: '${BUILD_NUMBER}'
             //sshScript remote: remote, script: 'abc.sh'
-            sshPut remote: remote, from: "'Dockerfile_${BUILD_ID}'", into: '/root/docker/'
+            sshPut remote: remote, from: "Dockerfile_${BUILD_ID}", into: '/root/docker/'
             //sshCommand remote: remote, command: 'docker build -t testweb /root/docker/.'
             //sshCommand remote: remote, command: 'ansible-playbook docker.yml'
             //sshCommand remote: remote, command: 'export BUILD_NUMBER=${BUILD_NUMBER}'
