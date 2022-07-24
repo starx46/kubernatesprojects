@@ -28,18 +28,26 @@ node {
             //sshScript remote: remote, script: 'abc.sh'
             sshPut remote: remote, from: "Dockerfile_${BUILD_ID}", into: '/root/docker/'
             sshCommand remote: remote, command: "docker build -t learndockerwithme/testweb.v1.${BUILD_ID} -f /root/docker/Dockerfile_${BUILD_ID} ."
-		sshCommand remote: remote, command: "docker login -u learndockerwithme -p K1reit@123"
-	    sshCommand remote: remote, command: "docker push learndockerwithme/testweb.v1.${BUILD_ID}:latest"
+		
             //sshCommand remote: remote, command: 'ansible-playbook docker.yml'
             //sshCommand remote: remote, command: 'export BUILD_NUMBER=${BUILD_NUMBER}'
             //sshCommand remote: remote, command: 'echo ${BUILD_NUMBER}>/tmp/test.txt'
             
             //sshRemove remote: remote, path: 'abc.sh'
             
-            stage("creating container"){
-                //sshCommand remote: remote, command: 'ansible-playbook /root/docker/docker.yml'
+      stage('Docker Push') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+         // sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          //sh 'docker push shanem/spring-petclinic:latest'
+	sshCommand remote: remote, command: "docker login -u learndockerwithme -p K1reit@123"
+          //sshCommand remote: remote, command: 'ansible-playbook /root/docker/docker.yml'
+	//sshCommand remote: remote, command: "docker login -u learndockerwithme -p K1reit@123"
+	sshCommand remote: remote, command: "docker push learndockerwithme/testweb.v1.${BUILD_ID}:latest"
                 sh 'rm -rf Dockerfile_${BUILD_ID}'
-            
+		
+	}
+      }            
             }
         }
     }
