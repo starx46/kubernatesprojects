@@ -36,7 +36,6 @@ node {
             //sshRemove remote: remote, path: 'abc.sh'
             
       stage('Docker Push') {
-      steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
          // sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           //sh 'docker push shanem/spring-petclinic:latest'
@@ -46,7 +45,7 @@ node {
 	sshCommand remote: remote, command: "docker push learndockerwithme/testweb.v1.${BUILD_ID}:latest"
                 sh 'rm -rf Dockerfile_${BUILD_ID}'
 		
-	}
+	
       }            
             }
         }
