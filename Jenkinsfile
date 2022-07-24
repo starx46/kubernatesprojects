@@ -37,9 +37,9 @@ node {
             
       stage('Docker Push') {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+         //sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           //sh 'docker push shanem/spring-petclinic:latest'
-	//sshCommand remote: remote, command: "docker login -u learndockerwithme -p K1reit@123"
+	sshCommand remote: remote, command: "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           //sshCommand remote: remote, command: 'ansible-playbook /root/docker/docker.yml'
 	//sshCommand remote: remote, command: "docker login -u learndockerwithme -p K1reit@123"
 	sshCommand remote: remote, command: "docker push learndockerwithme/testweb.v1.${BUILD_ID}:latest"
