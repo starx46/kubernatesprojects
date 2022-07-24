@@ -42,7 +42,8 @@ node {
 	sshCommand remote: remote, command: "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           //sshCommand remote: remote, command: 'ansible-playbook /root/docker/docker.yml'
 	//sshCommand remote: remote, command: "docker login -u learndockerwithme -p K1reit@123"
-	sshCommand remote: remote, command: "docker push learndockerwithme/testweb.v1.${BUILD_ID}:latest"
+	sshCommand remote: remote, command: "docker push learndockerwithme/testweb:latest"
+	sshCommand remote: remote, command: "docker push learndockerwithme/testweb:v1.${BUILD_ID}"
                 sh 'rm -rf Dockerfile_${BUILD_ID}'
 		
 	
