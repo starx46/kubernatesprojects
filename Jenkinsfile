@@ -32,7 +32,7 @@ node {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 	sshCommand remote: remote, command: "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
 	sshCommand remote: remote, command: "docker push learndockerwithme/testweb:v1.${BUILD_ID}"
-                sh 'rm -rf Dockerfile_${BUILD_ID}'
+                //sh 'rm -rf Dockerfile_${BUILD_ID}'
 	sshCommand remote: remote, command: "rm -rf Dockerfile_${BUILD_ID}"
 		
 	stage('container creation'){
