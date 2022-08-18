@@ -23,7 +23,7 @@ node {
            
             sh 'mv Dockerfile Dockerfile_${BUILD_ID}'         
             sshPut remote: remote, from: "Dockerfile_${BUILD_ID}", into: '/root/docker/'
-	    sshPut remote: remote, from: 'deployment.yml service.yml', into: '/root/docker/'
+	    sshPut remote: remote, from: 'deployment.yml,service.yml', into: '/root/docker/'
             //sshCommand remote: remote, command: "docker build -t testweb:latest -f /root/docker/Dockerfile_${BUILD_ID} ."
 	    sshCommand remote: remote, command: "docker build -t ${JOB_NAME}:v1.${BUILD_ID} -f /root/docker/Dockerfile_${BUILD_ID} ."
 
