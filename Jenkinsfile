@@ -21,8 +21,9 @@ node {
         remote.identityFile = identity
         stage("docker image build") { 
            
-            sh 'mv Dockerfile Dockerfile_${BUILD_ID}'         
-            sshPut remote: remote, from: "Dockerfile_${BUILD_ID}", into: '/root/docker/'
+            //sh 'mv Dockerfile Dockerfile_${BUILD_ID}'         
+            //sshPut remote: remote, from: "Dockerfile_${BUILD_ID}", into: '/root/docker/'
+	    sshPut remote: remote, from: "Dockerfile", into: '/root/docker/'
 	    sshPut remote: remote, from: 'deployment.yml', into: '/root/docker/'
 	    sshPut remote: remote, from: 'service.yml', into: '/root/docker/'
             //sshCommand remote: remote, command: "docker build -t testweb:latest -f /root/docker/Dockerfile_${BUILD_ID} ."
