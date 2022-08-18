@@ -37,8 +37,8 @@ node {
 		
 	stage('container creation'){
 		
-		//sshCommand remote: remote, command: "ansible-playbook /root/docker/docker.yml -e image_id=learndockerwithme/testweb:v1.${BUILD_ID} -e container_name=testweb_v1_${BUILD_ID}"
-		sshCommand remote: remote, command: "ansible-playbook /root/docker/deployment.yml -e image_id=learndockerwithme/testweb:v1.${BUILD_ID} -e container_name=testweb_v1_${BUILD_ID}"
+		sshCommand remote: remote, command: "ansible-playbook /root/docker/docker.yml -e image_id=learndockerwithme/testweb:v1.${BUILD_ID} -e container_name=testweb_v1_${BUILD_ID}"
+		//sshCommand remote: remote, command: "ansible-playbook /root/docker/deployment.yml -e image_id=learndockerwithme/testweb:v1.${BUILD_ID} -e container_name=testweb_v1_${BUILD_ID}"
 
 		//sh 'rm -rf *'
 
