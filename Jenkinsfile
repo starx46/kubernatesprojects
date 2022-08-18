@@ -23,23 +23,25 @@ node {
            
             sh 'mv Dockerfile Dockerfile_${BUILD_ID}'         
             sshPut remote: remote, from: "Dockerfile_${BUILD_ID}", into: '/root/docker/'
-            sshCommand remote: remote, command: "docker build -t testweb:latest -f /root/docker/Dockerfile_${BUILD_ID} ."
-	    sshCommand remote: remote, command: "docker tag testweb learndockerwithme/testweb:latest"
-	    //sshCommand remote: remote, command: "docker tag testweb learndockerwithme/testweb:v1.${BUILD_ID}"
+            //sshCommand remote: remote, command: "docker build -t testweb:latest -f /root/docker/Dockerfile_${BUILD_ID} ."
+	    sshCommand remote: remote, command: "docker build -t ${JOB_NAME}:v1.${BUILD_ID} -f /root/docker/Dockerfile_${BUILD_ID} ."
+
+	    sshCommand remote: remote, command: "docker tag ${JOB_NAME}:v1.${BUILD_ID} learndockerwithme/${JOB_NAME}:v1.${BUILD_ID}"
+	    sshCommand remote: remote, command: "docker tag ${JOB_NAME}:v1.${BUILD_ID} learndockerwithme/${JOB_NAME}:latest"
             
             
       stage('Docker Push') {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 	sshCommand remote: remote, command: "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-	//sshCommand remote: remote, command: "docker push learndockerwithme/testweb:v1.${BUILD_ID}"
-	sshCommand remote: remote, command: "docker push learndockerwithme/testweb:latest"
+	sshCommand remote: remote, command: "docker push learndockerwithme/${JOB_NAME}:v1.${BUILD_ID}"
+	sshCommand remote: remote, command: "docker push learndockerwithme/${JOB_NAME}:latest"
 
                 //sh 'rm -rf Dockerfile_${BUILD_ID}'
 	sshCommand remote: remote, command: "rm -rf Dockerfile_${BUILD_ID}"
 		
 	stage('container creation'){
 		
-		sshCommand remote: remote, command: "ansible-playbook /root/docker/docker.yml -e image_id=learndockerwithme/testweb:v1.${BUILD_ID} -e container_name=testweb_v1_${BUILD_ID}"
+		sshCommand remote: remote, command: "ansible-playbook /root/docker/docker.yml -e image_id=learndockerwithme/${JOB_NAME}:latest -e container_name=${JOB_NAME}"
 		//sshCommand remote: remote, command: "ansible-playbook /root/docker/deployment.yml -e image_id=learndockerwithme/testweb:v1.${BUILD_ID} -e container_name=testweb_v1_${BUILD_ID}"
 
 		//sh 'rm -rf *'
