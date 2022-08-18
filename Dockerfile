@@ -15,4 +15,3 @@ RUN cp -rvf webwing/* .
 RUN rm -rf webwing webwing.zip
 EXPOSE 80
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-
