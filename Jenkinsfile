@@ -24,14 +24,16 @@ node {
             sh 'mv Dockerfile Dockerfile_${BUILD_ID}'         
             sshPut remote: remote, from: "Dockerfile_${BUILD_ID}", into: '/root/docker/'
             sshCommand remote: remote, command: "docker build -t testweb:latest -f /root/docker/Dockerfile_${BUILD_ID} ."
-	    //sshCommand remote: remote, command: "docker tag testweb learndockerwithme/testweb:latest"
-	    sshCommand remote: remote, command: "docker tag testweb learndockerwithme/testweb:v1.${BUILD_ID}"
+	    sshCommand remote: remote, command: "docker tag testweb learndockerwithme/testweb:latest"
+	    //sshCommand remote: remote, command: "docker tag testweb learndockerwithme/testweb:v1.${BUILD_ID}"
             
             
       stage('Docker Push') {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 	sshCommand remote: remote, command: "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-	sshCommand remote: remote, command: "docker push learndockerwithme/testweb:v1.${BUILD_ID}"
+	//sshCommand remote: remote, command: "docker push learndockerwithme/testweb:v1.${BUILD_ID}"
+	sshCommand remote: remote, command: "docker push learndockerwithme/testweb:latest"
+
                 //sh 'rm -rf Dockerfile_${BUILD_ID}'
 	sshCommand remote: remote, command: "rm -rf Dockerfile_${BUILD_ID}"
 		
