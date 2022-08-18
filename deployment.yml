@@ -16,4 +16,4 @@ spec:
       - name: frontend-web
         image: learndockerwithme/kubernates-project-1
         ports:
-        - containerPort: 80
+        - containerPort: 8080
