@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-nginx
+  name: frontend-web
 spec:
   selector:
     matchLabels:
-      run: my-nginx
+      run: frontend-web
   replicas: 2
   template:
     metadata:
       labels:
-        run: my-nginx
+        run: frontend-web
     spec:
       containers:
-      - name: my-nginx
-        image: nginx
+      - name: frontend-web
+        image: learndockerwithme/kubernates-project-1
         ports:
         - containerPort: 80
