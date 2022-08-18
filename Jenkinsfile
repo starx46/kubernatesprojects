@@ -27,7 +27,7 @@ node {
 	    sshPut remote: remote, from: 'deployment.yml', into: '/root/docker/'
 	    sshPut remote: remote, from: 'service.yml', into: '/root/docker/'
             //sshCommand remote: remote, command: "docker build -t testweb:latest -f /root/docker/Dockerfile_${BUILD_ID} ."
-	    sshCommand remote: remote, command: "docker build -t ${JOB_NAME}:v1.${BUILD_ID} -f /root/docker/Dockerfile_${BUILD_ID} ."
+	    sshCommand remote: remote, command: "docker build -t ${JOB_NAME}:v1.${BUILD_ID} -f /root/docker/Dockerfile ."
 
 	    sshCommand remote: remote, command: "docker tag ${JOB_NAME}:v1.${BUILD_ID} learndockerwithme/${JOB_NAME}:v1.${BUILD_ID}"
 	    sshCommand remote: remote, command: "docker tag ${JOB_NAME}:v1.${BUILD_ID} learndockerwithme/${JOB_NAME}:latest"
